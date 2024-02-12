@@ -1,20 +1,11 @@
 package com.example.csd228lab2.services
 
-open class Message(private val mixMedia: List<List<Int>>? = emptyList(), private val text:String? = null) {}
+import com.example.csd228lab2.models.Message
 
-data class TextMessage(val text:String):Message(mixMedia = null, text = text)
-data class MediaMessage(val media: List<List<Int>> = emptyList()): Message(mixMedia = media)
-data class MixMedia(val text: String, val media: List<List<Int>>): Message(mixMedia = media, text = text)
-
-enum class MessageStatus private constructor(val value: String) {
-    sent("sent"),
-    delivered("delivered"),
-    read("read"),
-    failed("failed to send")
-}
 
 interface Messager {
     fun send(message: Message): Message
+    fun delete(message: Message)//: Boolean   ???
     fun refresh()
 }
 
@@ -23,5 +14,10 @@ class Messenger: Messager {
         return Message()
     }
 
+    override fun delete(message: Message) {
+        // return true ???
+    }
+
     override fun refresh() {}
 }
+
