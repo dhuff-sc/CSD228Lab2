@@ -37,6 +37,7 @@ enum class MessageStatus(val value: String) {
     delivered("delivered"),
     read("read"),
     failed("failed to send")
+}
 
 // 3. History of conversations
 // 4. Single person or group chat
@@ -47,8 +48,6 @@ data class Conversation(
     val startDate: Timestamp = Timestamp(System.currentTimeMillis()), // This too
     val readReceipts: Boolean = true
 )
-
-}
 
 // 2. Send messages while offline?
 // Discuss Repository? Post messages while offline?
