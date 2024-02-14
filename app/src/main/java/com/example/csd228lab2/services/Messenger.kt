@@ -49,6 +49,8 @@ interface MessagerQueue {
 /**
  * MessengerQueue class implements MessagerQueue interface
  * Contains a list of messages to be sent
+ * Allows queueing of messages and sending of queued messages
+ * Allows checking if online before sending
  * Meets requirements to queue messages, send queued messages, and check if online
  */
 class MessengerQueue: MessagerQueue {

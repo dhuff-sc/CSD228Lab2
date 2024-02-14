@@ -79,6 +79,7 @@ enum class MessageStatus(val value: String) {
  * Contains list of users, list of messages, and read receipts Boolean
  * Meets the requirement for view conversation
  * Meets the requirement for toggle read receipts
+ * Meets the requirement for single or multi-user conversation
  */
 data class Conversation(
     val users: List<User>,
