@@ -1,12 +1,12 @@
+/**
+ * Messenger Service
+ * @author: Daniel Huff, @dhuff-sc
+ * date: 2024-02-14
+ */
+
 package com.example.csd228lab2.services
 
 import com.example.csd228lab2.models.Message
-
-/**
- * Messenger Service
- * author: Daniel Huff, @dhuff-sc
- * date: 2024-02-14
- */
 
 interface Messager {
     fun send(message: Message): Message
@@ -14,37 +14,63 @@ interface Messager {
     fun refresh()
 }
 
-// 8. Delete messages from a conversation
+/**
+ * Messenger class implements Messager interface
+ * Meets requirements to send, delete, and refresh messages
+ */
 class Messenger: Messager {
+    /**
+     * Send a message
+     * @param message: Message
+     * @return Message
+     */
     override fun send(message:Message): Message {
         return message
     }
-
+    /**
+     * Delete a message
+     * @param message: Message
+     */
     override fun delete(message: Message) {
     }
-
+    /**
+     * Refresh messages
+     */
     override fun refresh() {}
 }
 
-// 2. Send messages while offline
+
 interface MessagerQueue {
     fun queueMessage(message: Message)
     fun sendQueuedMessages()
     fun isOnline(): Boolean
 }
 
+/**
+ * MessengerQueue class implements MessagerQueue interface
+ * Contains a list of messages to be sent
+ * Meets requirements to queue messages, send queued messages, and check if online
+ */
 class MessengerQueue: MessagerQueue {
     private val messages = mutableListOf<Message>()
+    /**
+     * Queue a message
+     * @param message: Message
+     */
     override fun queueMessage(message: Message) {
         messages.add(message)
     }
-    override fun sendQueuedMessages() {
+    override fun sendQueuedMessages() { // Set up some possibly valid code for now
         if (isOnline()) {
             for (message in messages) {
                 Messenger().send(message)
             }
         }
     }
+    /**
+     * Check if online
+     * @return Boolean
+     */
     override fun isOnline(): Boolean {
         return true
     }

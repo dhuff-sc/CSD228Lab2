@@ -1,14 +1,19 @@
+/**
+ * Data Types for Messenger
+ * @author: Daniel Huff, @dhuff-sc
+ * date: 2024-02-14
+ */
+
 package com.example.csd228lab2.models
 
 import java.sql.Timestamp
 
 /**
- * Data Types for Messenger
- * author: Daniel Huff, @dhuff-sc
- * date: 2024-02-14
+ * Data class that represents a user
+ *
+ * Contains id, userName, email, and avatar
+ * Meets the requirement for user data
  */
-
-// 1. Store Basic User Data
 data class User(
     val id: Int? = null,
     val userName: String,
@@ -16,7 +21,14 @@ data class User(
     val avatar: Char? = null,
 )
 
-// 5. When message was sent, Timestamp**
+/**
+ * Open data class that represents a message
+ * Provides three subclasses for different message types
+ * Text-only, media-only, and mixed media
+ *
+ * Contains id, mixMedia, text, status, sender, and timestamp
+ * Meets the requirement for message status, message send time, and message sender
+ */
 open class Message(
     private val id: Int,
     private val mixMedia: List<List<Int>>? = emptyList(),
@@ -41,7 +53,6 @@ data class MediaMessage(
     val status: MessageStatus,
     val sender: User? = null)
     : Message(id = id, mixMedia = mixMedia, timestamp = timestamp, status = status, sender = sender)
-// 9. Send mixed media
 data class MixMedia(
     val id:Int,
     val text: String,
@@ -51,23 +62,27 @@ data class MixMedia(
     val sender: User? = null)
     : Message(id = id, mixMedia = mixMedia, text = text, timestamp = timestamp, status = status, sender = sender)
 
-// 5. See when sent
+/**
+ * Enum class that represents the status of a message
+ *
+ * Contains SENT, DELIVERED, and FAILED
+ * Meets the requirement for message status
+ */
 enum class MessageStatus(val value: String) {
     SENT("sent"),
     DELIVERED("delivered"),
     FAILED("failed to send")
 }
-
-// 3. History of conversations
-// 4. Single person or group chat
-// 6. Toggle read receipts
+/**
+ * Data class that represents a conversation between users
+ *
+ * Contains list of users, list of messages, and read receipts Boolean
+ * Meets the requirement for view conversation
+ * Meets the requirement for toggle read receipts
+ */
 data class Conversation(
     val users: List<User>,
     val messages: List<Message>,
     val readReceipts: Boolean = true
 )
-
-// 2. Send messages while offline?
-// Discuss Repository? Post messages while offline?
-// 8. Delete messages from a conversation?
 

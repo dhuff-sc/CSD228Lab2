@@ -38,21 +38,33 @@ class DataTypesUnitTest {
     fun testMessageSubclasses() {
         val testTime = Timestamp(System.currentTimeMillis())
 
-        val textMessage = TextMessage(id = 1, text = "This is a text-only message!", status = MessageStatus.SENT, timestamp = Timestamp(System.currentTimeMillis()))
+        val textMessage = TextMessage(
+            id = 1,
+            text = "This is a text-only message!",
+            status = MessageStatus.SENT,
+            timestamp = Timestamp(System.currentTimeMillis()))
         assertEquals(1, textMessage.id)
         assertEquals("This is a text-only message!", textMessage.text)
         assertEquals(null, textMessage.mixMedia)
         assertEquals(testTime.time / 1000, textMessage.timestamp.time / 1000)
         assertEquals(MessageStatus.SENT, textMessage.status)
 
-        val mediaMessage = MediaMessage(id = 2, mixMedia = listOf(listOf(1, 2), listOf(3, 4)), status = MessageStatus.FAILED, timestamp = Timestamp(System.currentTimeMillis()))
+        val mediaMessage = MediaMessage(id = 2,
+            mixMedia = listOf(listOf(1, 2), listOf(3, 4)),
+            status = MessageStatus.FAILED,
+            timestamp = Timestamp(System.currentTimeMillis()))
         assertEquals(2, mediaMessage.id)
         assertEquals(null, mediaMessage.text)
         assertEquals(listOf(listOf(1, 2), listOf(3, 4)), mediaMessage.mixMedia)
         assertEquals(testTime.time / 1000, mediaMessage.timestamp.time / 1000)
         assertEquals(MessageStatus.FAILED, mediaMessage.status)
 
-        val mixMedia = MixMedia(id = 3, text = "This is a mixed media message!", mixMedia = listOf(listOf(5, 6)), status = MessageStatus.DELIVERED, timestamp = Timestamp(System.currentTimeMillis()))
+        val mixMedia = MixMedia(
+            id = 3,
+            text = "This is a mixed media message!",
+            mixMedia = listOf(listOf(5, 6)),
+            status = MessageStatus.DELIVERED,
+            timestamp = Timestamp(System.currentTimeMillis()))
         assertEquals(3, mixMedia.id)
         assertEquals("This is a mixed media message!", mixMedia.text)
         assertEquals(listOf(listOf(5, 6)), mixMedia.mixMedia)
