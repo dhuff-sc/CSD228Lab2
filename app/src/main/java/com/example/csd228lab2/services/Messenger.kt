@@ -21,7 +21,7 @@ interface Messager {
 class Messenger: Messager {
     /**
      * Send a message
-     * @param message: Message
+     * @param message: Any data format of the Message subclasses
      * @return Message
      */
     override fun send(message:Message): Message {
@@ -29,7 +29,7 @@ class Messenger: Messager {
     }
     /**
      * Delete a message
-     * @param message: Message
+     * @param message: Any data format of the Message subclasses
      */
     override fun delete(message: Message) {
     }
@@ -56,12 +56,16 @@ interface MessagerQueue {
 class MessengerQueue: MessagerQueue {
     private val messages = mutableListOf<Message>()
     /**
-     * Queue a message
-     * @param message: Message // TODO: Elaborate on purpose of message for each
+     * Queue a message before check if online
+     * @param message: Any data format of the Message subclasses
      */
     override fun queueMessage(message: Message) {
         messages.add(message)
     }
+    /**
+     * Send queued messages if online
+     * @param m: Messenger object that the send method can be called upon
+     */
     override fun sendQueuedMessages(m: Messenger) { // Set up some possibly valid code for now
         if (isOnline()) {
             for (message in messages) {
@@ -70,7 +74,7 @@ class MessengerQueue: MessagerQueue {
         }
     }
     /**
-     * Check if online
+     * Check if online before sending messages
      * @return Boolean
      */
     override fun isOnline(): Boolean {
