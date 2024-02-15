@@ -36,7 +36,7 @@ status enum.
 
 ### Sending Offline Messages
 
-We can address the issue of being able to send offline messages by prodiving a queue in the form of
+We can address the issue of being able to send offline messages by providing a queue in the form of
 an interface with a list of queued messages or a repository.
 
 Repository

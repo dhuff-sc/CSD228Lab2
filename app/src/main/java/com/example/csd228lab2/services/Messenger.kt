@@ -42,7 +42,7 @@ class Messenger: Messager {
 
 interface MessagerQueue {
     fun queueMessage(message: Message)
-    fun sendQueuedMessages()
+    fun sendQueuedMessages(m: Messenger)
     fun isOnline(): Boolean
 }
 
@@ -57,12 +57,12 @@ class MessengerQueue: MessagerQueue {
     private val messages = mutableListOf<Message>()
     /**
      * Queue a message
-     * @param message: Message
+     * @param message: Message // TODO: Elaborate on purpose of message for each
      */
     override fun queueMessage(message: Message) {
         messages.add(message)
     }
-    override fun sendQueuedMessages() { // Set up some possibly valid code for now
+    override fun sendQueuedMessages(m: Messenger) { // Set up some possibly valid code for now
         if (isOnline()) {
             for (message in messages) {
                 Messenger().send(message)
@@ -77,4 +77,6 @@ class MessengerQueue: MessagerQueue {
         return true
     }
 }
+
+// TODO: Split up ADRS to narrow scopes AND split up testing and test cases
 
