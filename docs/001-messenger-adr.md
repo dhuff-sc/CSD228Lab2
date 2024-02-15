@@ -1,4 +1,4 @@
-# Messenger Project ADR
+# Messenger Project ADR - Data Types
 Date: 2024-02-14
 
 ## Status
@@ -7,7 +7,7 @@ Proposed, Data Layer underway
 
 ## Content
 
-As per client requests, we are faced with a following requirements and problems:
+Project requires creation of the data layer as per following requirements:
 - Store basic user data as a participant of a conversation
 - Send messages when offline and have those send when connected to a wireless connection again
 - See a history of a conversation
@@ -34,32 +34,26 @@ in the conversation, and keep a history of messages.
 Message data types can contain the media type, unique identifiers, timestamp data, as well as a
 status enum.
 
-### Sending Offline Messages
-
-We can address the issue of being able to send offline messages by providing a queue in the form of
-an interface with a list of queued messages or a repository.
-
-Repository
-Pros:
-- More elegant and likely more long-term solution
-- Standard practice
-
-Cons:
-- Not familiar enough with android/kotlin data repositories
-- Tight timeframe
-- Need to learn
-
 ### UI Reliant Methods
 
-Some methods that will be implemented through our interfaces will not be viable for proper
+Some methods that will be implemented through our data interfaces will not be viable for proper
 functional testing until the UI layer begins implementation.
 
 ## Decision
 
-Using an interface for offline message queue will be our best bet given the time and resources available.
+We will implement the aforementioned data types to meet the requirements of the user requests.
+Later UI implementation will allow us to functionally test properly. The four main data types will
+consist of User, Conversation, Message, and Status. The Message data type will contain three
+subclasses: Text, Media, and MixMedia.
 
 ## Outcomes
 
 We will ensure that the data layer meets all requirements of the user requests and be thoroughly tested
-when comes time to implement the UI/Android layer. Some methods will not be able to be properly implemented
-such as refreshing the list of messages until the Android layer begins implementation.
+when comes time to implement the UI/Android layer. The data types mentioned will cover the requirements of:
+- Storing basic user data as a participant of a conversation
+- Conversation history
+- Single and group conversations
+- Message timestamp
+- Read receipts
+- Message status
+- Sending Mixed Media messages
