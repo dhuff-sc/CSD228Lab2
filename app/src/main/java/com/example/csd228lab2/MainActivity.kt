@@ -10,6 +10,9 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
+import androidx.navigation.compose.rememberNavController
 import com.example.csd228lab2.ui.theme.CSD228Lab2Theme
 
 class MainActivity : ComponentActivity() {
@@ -17,30 +20,31 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             CSD228Lab2Theme {
-                // A surface container using the 'background' color from the theme
-                Surface(
-                    modifier = Modifier.fillMaxSize(),
-                    color = MaterialTheme.colorScheme.background
-                ) {
-                    Greeting("Android")
+                Surface(modifier = Modifier.fillMaxSize(), color = MaterialTheme.colorScheme.background) {
+                    ChatApp()
                 }
             }
+
         }
     }
 }
 
 @Composable
-fun Greeting(name: String, modifier: Modifier = Modifier) {
-    Text(
-        text = "Hello $name!",
-        modifier = modifier
-    )
-}
-
-@Preview(showBackground = true)
-@Composable
-fun GreetingPreview() {
-    CSD228Lab2Theme {
-        Greeting("Android")
+fun ChatApp(modifier: Modifier = Modifier) {
+    val navController = rememberNavController()
+    NavHost(navController, startDestination = "convo/1", modifier = modifier) {
+        composable("convoList") {
+            ConvoListScreen(navController = navController)
+        }
+        composable("createUser") {
+            CreateUserScreen(navController = navController)
+        }
+        composable("convo/{convoId}") { backStackEntry ->
+            ConvoScreen(
+                navController = navController,
+//                convoId = backStackEntry.arguments?.getString("convoId")!!
+            )
+        }
     }
+
 }

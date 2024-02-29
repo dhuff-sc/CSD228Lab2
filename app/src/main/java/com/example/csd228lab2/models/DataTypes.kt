@@ -82,6 +82,7 @@ enum class MessageStatus(val value: String) {
  * Meets the requirement for single or multi-user conversation
  */
 data class Conversation(
+    val id: Int,
     val users: List<User>,
     val messages: List<Message>,
     val readReceipts: Boolean = true

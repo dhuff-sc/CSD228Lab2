@@ -138,7 +138,7 @@ class DataTypesUnitTest {
         message8 = MediaMessage(id = 8, mixMedia = listOf(listOf(1, 2), listOf(3, 4)), sender = user, status = MessageStatus.SENT, timestamp = Timestamp(System.currentTimeMillis()))
         message9 = MixMedia(id = 9, text = "This is a mixed media message!", mixMedia = listOf(listOf(5, 6)), sender = user2, status = MessageStatus.DELIVERED, timestamp = Timestamp(System.currentTimeMillis()))
         messages = listOf(message1, message2, message3, message4, message5, message6, message7, message8, message9)
-        conversation = Conversation(users = listOf(user, user2), messages = messages, readReceipts = true)
+        conversation = Conversation( id = 1, users = listOf(user, user2), messages = messages, readReceipts = true)
     }
     @Test
     fun testCreateConversationWithUsers() {
