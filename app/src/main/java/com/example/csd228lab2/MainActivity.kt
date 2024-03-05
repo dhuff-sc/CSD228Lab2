@@ -32,7 +32,7 @@ class MainActivity : ComponentActivity() {
 @Composable
 fun ChatApp(modifier: Modifier = Modifier) {
     val navController = rememberNavController()
-    NavHost(navController, startDestination = "convo/1", modifier = modifier) {
+    NavHost(navController, startDestination = "createUser", modifier = modifier) {
         composable("convoList") {
             ConvoListScreen(navController = navController)
         }

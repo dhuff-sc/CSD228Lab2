@@ -20,12 +20,13 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.example.csd228lab2.ui.CreateUserViewModel
+import androidx.lifecycle.viewmodel.compose.viewModel
 
 
 @Composable
 fun CreateUserScreen(
     navController: NavController,
-//    viewModel: CreateUserViewModel = viewModel()
+    viewModel: CreateUserViewModel = viewModel()
 ) {
     var userName by remember { mutableStateOf("") }
     var email by remember { mutableStateOf("") }
@@ -55,8 +56,8 @@ fun CreateUserScreen(
 
             Button(
                 onClick = {
-                    //viewModel.createUser(userName, email)
-                    navController.popBackStack()
+                    viewModel.createUser(userName, email)
+//                    navController.popBackStack()
                 },
                 modifier = Modifier.fillMaxWidth()
             ) {
