@@ -1,4 +1,4 @@
-package com.example.csd228lab2
+package com.example.csd228lab2.ui.screens
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -19,7 +19,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
-import com.example.csd228lab2.ui.CreateUserViewModel
+import com.example.csd228lab2.ui.viewmodels.CreateUserViewModel
 import androidx.lifecycle.viewmodel.compose.viewModel
 
 
@@ -57,7 +57,7 @@ fun CreateUserScreen(
             Button(
                 onClick = {
                     viewModel.createUser(userName, email)
-//                    navController.popBackStack()
+                    navController.navigate("convoList")
                 },
                 modifier = Modifier.fillMaxWidth()
             ) {

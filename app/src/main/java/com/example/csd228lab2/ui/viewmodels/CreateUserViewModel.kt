@@ -1,4 +1,4 @@
-package com.example.csd228lab2.ui
+package com.example.csd228lab2.ui.viewmodels
 
 import android.util.Log
 import androidx.lifecycle.ViewModel
