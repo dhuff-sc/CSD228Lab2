@@ -17,12 +17,14 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
+import androidx.lifecycle.viewmodel.compose.viewModel
+import com.example.csd228lab2.ui.viewmodels.ConvoViewModel
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ConvoScreen( navController: NavController,
-//                 viewModel: ConvoViewModel = viewModel()
+                 viewModel: ConvoViewModel = viewModel()
 ) {
     Scaffold(
         topBar = {

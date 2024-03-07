@@ -10,11 +10,13 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
+import com.example.csd228lab2.ui.viewmodels.ConvoListViewModel
+import androidx.lifecycle.viewmodel.compose.viewModel
 
 @Composable
 fun ConvoListScreen(
     navController: NavController,
-//    viewModel: ConvoListViewModel = viewModel()
+    viewModel: ConvoListViewModel = viewModel()
 ) {
     Column(
         modifier = Modifier
