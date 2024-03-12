@@ -7,7 +7,6 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
-import androidx.compose.material3.Button
 import androidx.compose.material3.CenterAlignedTopAppBar
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
@@ -19,10 +18,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import androidx.lifecycle.viewmodel.compose.viewModel
-import com.example.csd228lab2.models.Conversation
-import com.example.csd228lab2.models.User
-import com.example.csd228lab2.ui.compose.ConversationRow
-import com.example.csd228lab2.ui.compose.ConvoMessage
 import com.example.csd228lab2.ui.compose.MessageRow
 import com.example.csd228lab2.ui.viewmodels.ConvoViewModel
 
@@ -37,7 +32,7 @@ fun ConvoScreen( navController: NavController,
             CenterAlignedTopAppBar(
                 title = { Text("Convo") },
                 navigationIcon = {
-                    IconButton(onClick = { }) {
+                    IconButton(onClick = { navController.popBackStack()}) {
                         Icon(Icons.Filled.ArrowBack, contentDescription = "Back")
                     }
                 }
