@@ -34,7 +34,8 @@ import com.example.csd228lab2.ui.compose.ConversationRow
 @Composable
 fun ConvoListScreen(
     cb : () -> Unit = {},
-    viewModel: ConvoListViewModel = viewModel()
+    viewModel: ConvoListViewModel = viewModel(),
+    navToConvo: (Int) -> Unit
 ) {
     var convoList by remember { mutableStateOf(listOf<Conversation>()) }
 
@@ -62,7 +63,7 @@ fun ConvoListScreen(
             verticalArrangement = Arrangement.spacedBy(16.dp),
         ) {
             convoList.forEach { convo ->
-                ConversationRow(convo)
+                ConversationRow(convo, onClick = navToConvo)
             }
         }
     }

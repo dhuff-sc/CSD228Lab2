@@ -1,5 +1,6 @@
 package com.example.csd228lab2.ui.compose
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -11,9 +12,9 @@ import androidx.compose.ui.unit.dp
 import com.example.csd228lab2.models.Conversation
 
 @Composable
-fun ConversationRow (convo : Conversation) {
+fun ConversationRow (convo : Conversation, onClick : (Int) -> Unit) {
     Card(
-        modifier = Modifier
+        modifier = Modifier.clickable(onClick = {onClick(convo.id)})
             .fillMaxWidth()
             .padding(8.dp)
     ) {
