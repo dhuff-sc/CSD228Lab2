@@ -11,6 +11,7 @@ import androidx.compose.material3.Button
 import androidx.compose.material3.CenterAlignedTopAppBar
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -18,6 +19,11 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import androidx.lifecycle.viewmodel.compose.viewModel
+import com.example.csd228lab2.models.Conversation
+import com.example.csd228lab2.models.User
+import com.example.csd228lab2.ui.compose.ConversationRow
+import com.example.csd228lab2.ui.compose.ConvoMessage
+import com.example.csd228lab2.ui.compose.MessageRow
 import com.example.csd228lab2.ui.viewmodels.ConvoViewModel
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
@@ -31,10 +37,9 @@ fun ConvoScreen( navController: NavController,
             CenterAlignedTopAppBar(
                 title = { Text("Convo") },
                 navigationIcon = {
-                    Button(onClick = {
-                        navController.popBackStack()
-                    }) {
-                        Icon(Icons.Default.ArrowBack, contentDescription = "Back")}
+                    IconButton(onClick = { }) {
+                        Icon(Icons.Filled.ArrowBack, contentDescription = "Back")
+                    }
                 }
             )
         }
@@ -45,11 +50,9 @@ fun ConvoScreen( navController: NavController,
                 .padding(innerPadding),
             verticalArrangement = Arrangement.spacedBy(16.dp),
         ) {
-            Text(
-                modifier = Modifier.padding(8.dp),
-                text =
-                "Conversation will go here".trimIndent()
-        )
+            for (message in viewModel.convo.messages) {
+                MessageRow(message = message)
+            }
 
         }
 
