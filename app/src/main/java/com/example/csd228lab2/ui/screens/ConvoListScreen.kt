@@ -33,7 +33,7 @@ import com.example.csd228lab2.ui.compose.ConversationRow
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ConvoListScreen(
-    navController: NavController,
+    cb : () -> Unit = {},
     viewModel: ConvoListViewModel = viewModel()
 ) {
     var convoList by remember { mutableStateOf(listOf<Conversation>()) }
@@ -43,7 +43,7 @@ fun ConvoListScreen(
             CenterAlignedTopAppBar(
                 title = { Text("Convo List") },
                 navigationIcon = {
-                    IconButton(onClick = { navController.popBackStack() }) {
+                    IconButton(onClick = { cb() }) {
                         Icon(Icons.Filled.ArrowBack, contentDescription = "Back")
                     }
                 }

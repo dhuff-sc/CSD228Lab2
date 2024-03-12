@@ -25,7 +25,7 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 
 @Composable
 fun CreateUserScreen(
-    navController: NavController,
+    cb : () -> Unit,
     viewModel: CreateUserViewModel = viewModel()
 ) {
     var userName by remember { mutableStateOf("") }
@@ -57,7 +57,7 @@ fun CreateUserScreen(
             Button(
                 onClick = {
                     viewModel.createUser(userName, email)
-                    navController.navigate("convoList")
+                    cb()
                 },
                 modifier = Modifier.fillMaxWidth()
             ) {

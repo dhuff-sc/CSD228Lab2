@@ -24,7 +24,7 @@ import com.example.csd228lab2.ui.viewmodels.ConvoViewModel
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun ConvoScreen( navController: NavController,
+fun ConvoScreen( onBack: () -> Unit,
                  viewModel: ConvoViewModel = viewModel()
 ) {
     Scaffold(
@@ -32,7 +32,7 @@ fun ConvoScreen( navController: NavController,
             CenterAlignedTopAppBar(
                 title = { Text("Convo") },
                 navigationIcon = {
-                    IconButton(onClick = { navController.popBackStack()}) {
+                    IconButton(onClick = onBack) {
                         Icon(Icons.Filled.ArrowBack, contentDescription = "Back")
                     }
                 }

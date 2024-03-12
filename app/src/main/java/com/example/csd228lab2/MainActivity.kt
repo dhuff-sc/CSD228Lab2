@@ -8,6 +8,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.navigation.NavController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
@@ -30,21 +31,29 @@ class MainActivity : ComponentActivity() {
     }
 }
 
+fun NavController.convoList() {
+    navigate("convoList")
+}
+fun NavController.createUser() {
+    navigate("createUser")
+}
+
+fun NavController.convo(convoId: String) {
+    navigate("convo/$convoId")
+}
 @Composable
 fun ChatApp(modifier: Modifier = Modifier) {
     val navController = rememberNavController()
     NavHost(navController, startDestination = "createUser", modifier = modifier) {
         composable("convoList") {
-            ConvoListScreen(navController = navController)
+            ConvoListScreen(cb = {navController.convoList()})
         }
         composable("createUser") {
-            CreateUserScreen(navController = navController)
+            CreateUserScreen(cb = {navController.createUser()})
         }
         composable("convo/{convoId}") { backStackEntry ->
-            ConvoScreen(
-                navController = navController,
+            ConvoScreen(onBack = {navController.popBackStack()})
 //                convoId = backStackEntry.arguments?.getString("convoId")!!
-            )
         }
     }
 
