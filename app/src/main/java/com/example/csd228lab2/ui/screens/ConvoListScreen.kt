@@ -9,6 +9,8 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.ArrowBack
+import androidx.compose.material.icons.twotone.AccountCircle
+import androidx.compose.material.icons.twotone.AddCircle
 import androidx.compose.material3.CenterAlignedTopAppBar
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
@@ -37,7 +39,7 @@ fun ConvoListScreen(
     viewModel: ConvoListViewModel = viewModel(),
     navToConvo: (Int) -> Unit
 ) {
-    var convoList by remember { mutableStateOf(listOf<Conversation>()) }
+
 
     Scaffold(
         topBar = {
@@ -45,14 +47,14 @@ fun ConvoListScreen(
                 title = { Text("Convo List") },
                 navigationIcon = {
                     IconButton(onClick = { cb() }) {
-                        Icon(Icons.Filled.ArrowBack, contentDescription = "Back")
+                        Icon(Icons.TwoTone.AccountCircle, contentDescription = "Create Account")
                     }
                 }
             )
         },
         floatingActionButton = {
-            IconButton(onClick = { }) {
-                Icon(Icons.Filled.Add, contentDescription = "Create Convo")
+            IconButton(onClick = {}) {
+                Icon(Icons.TwoTone.AddCircle, contentDescription = "Create Convo")
             }
         }
     ) { innerPadding ->
@@ -62,7 +64,7 @@ fun ConvoListScreen(
                 .padding(innerPadding),
             verticalArrangement = Arrangement.spacedBy(16.dp),
         ) {
-            convoList.forEach { convo ->
+            viewModel.convoList.forEach { convo ->
                 ConversationRow(convo, onClick = navToConvo)
             }
         }

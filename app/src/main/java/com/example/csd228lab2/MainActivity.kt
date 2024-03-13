@@ -46,9 +46,9 @@ fun NavController.convo(convoId: Int) {
 @Composable
 fun ChatApp(modifier: Modifier = Modifier) {
     val navController = rememberNavController()
-    NavHost(navController, startDestination = "createUser", modifier = modifier) {
+    NavHost(navController, startDestination = "convoList", modifier = modifier) {
         composable("convoList") {
-            ConvoListScreen(cb = {}, navToConvo = {navController.convo(it)})
+            ConvoListScreen(cb = {navController.createUser()}, navToConvo = {navController.convo(it)})
         }
         composable("createUser") {
             CreateUserScreen(cb = {navController.convoList()})
