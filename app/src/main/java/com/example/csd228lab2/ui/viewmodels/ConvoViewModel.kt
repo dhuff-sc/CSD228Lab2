@@ -5,6 +5,10 @@ import com.example.csd228lab2.models.Conversation
 import com.example.csd228lab2.models.Message
 import com.example.csd228lab2.models.User
 
+/*
+* Hardcoded data for the conversation list
+* Temporary until database/repository is implemented
+ */
 class ConvoViewModel : ViewModel() {
     var User1 = User(id = 1, userName = "Alice", email = "", avatar = 'A')
     var User2 = User(id = 2, userName = "Bob", email = "", avatar = 'B')

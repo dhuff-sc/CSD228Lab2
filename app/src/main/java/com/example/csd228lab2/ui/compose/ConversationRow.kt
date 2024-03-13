@@ -11,6 +11,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.example.csd228lab2.models.Conversation
 
+/*
+* This is a composable function that represents a single row in the conversation list
+* Each conversation row is a card with the conversation's users listed
+ */
 @Composable
 fun ConversationRow (convo : Conversation, onClick : (Int) -> Unit) {
     Card(
@@ -23,7 +27,7 @@ fun ConversationRow (convo : Conversation, onClick : (Int) -> Unit) {
                 .fillMaxWidth()
                 .padding(8.dp)
         ) {
-            Text(convo.users.joinToString(", "))
+            Text(text = convo.users.joinToString { it.userName })
         }
 
     }

@@ -32,6 +32,13 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.csd228lab2.models.Conversation
 import com.example.csd228lab2.ui.compose.ConversationRow
 
+/*
+* This is a composable function that represents the conversation list screen
+* It displays a list of conversations
+* Each conversation is a card with the conversation's users listed
+* The user can click on a conversation to view the messages in the conversation each card represents
+* The user can also navigate to the Create User screen
+ */
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ConvoListScreen(

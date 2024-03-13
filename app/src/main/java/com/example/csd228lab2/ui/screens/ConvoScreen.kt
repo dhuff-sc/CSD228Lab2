@@ -20,6 +20,12 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.csd228lab2.ui.compose.MessageRow
 import com.example.csd228lab2.ui.viewmodels.ConvoViewModel
 
+/*
+* This is a composable function that represents the conversation screen
+* It displays a list of messages in a conversation
+* Each message is a card with the message's sender and text listed
+* From here, the user can navigate back to the conversation list screen
+ */
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable

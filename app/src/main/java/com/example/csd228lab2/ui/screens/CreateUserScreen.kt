@@ -22,7 +22,12 @@ import androidx.navigation.NavController
 import com.example.csd228lab2.ui.viewmodels.CreateUserViewModel
 import androidx.lifecycle.viewmodel.compose.viewModel
 
-
+/*
+* This is a composable function that represents the create user screen
+* It allows the user to create a new user with a username and email
+* The user can click the create user button to create a new user which will also navigate to the convo list
+* The user may return to this screen from the convo list screen
+ */
 @Composable
 fun CreateUserScreen(
     cb : () -> Unit,

@@ -18,7 +18,11 @@ import com.example.csd228lab2.ui.screens.ConvoScreen
 import com.example.csd228lab2.ui.screens.CreateUserScreen
 import com.example.csd228lab2.ui.theme.CSD228Lab2Theme
 
-
+/*
+* This is the main activity for the app
+* It establishes the content theme and sets the content to the ChatApp composable
+* The ChatApp composable is the main entry point for the app
+ */
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -32,6 +36,11 @@ class MainActivity : ComponentActivity() {
     }
 }
 
+/*
+* These NavControllers are extension functions that allow for easy navigation between screens
+* They are used in the ChatApp composable to navigate between the conversation list,
+* create user, and conversation screens
+ */
 fun NavController.convoList() {
     navigate("convoList")
 }
@@ -42,6 +51,13 @@ fun NavController.createUser() {
 fun NavController.convo(convoId: Int) {
     navigate("convo/$convoId")
 }
+
+/*
+* This is the ChatApp composable function
+* This contains the NavHost composable which allows for navigation between the conversation list,
+* create user, and conversation screens. We also set our startDestination to the conversation list screen
+* We also establish the navController extensions for easier testing
+ */
 @Preview
 @Composable
 fun ChatApp(modifier: Modifier = Modifier) {

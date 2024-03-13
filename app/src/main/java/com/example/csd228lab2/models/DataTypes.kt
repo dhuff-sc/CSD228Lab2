@@ -34,7 +34,7 @@ open class Message(
     private val mixMedia: List<List<Int>>? = emptyList(),
     internal open val text: String? = null,
     private val status: MessageStatus? = null,
-    private val sender: User? = null,
+    internal open val sender: User? = null,
     private val timestamp: Timestamp = Timestamp(System.currentTimeMillis())
 )
 data class TextMessage(
@@ -43,7 +43,7 @@ data class TextMessage(
     val mixMedia: List<List<Int>>? = null,
     val timestamp: Timestamp,
     val status: MessageStatus,
-    val sender: User? = null)
+    override val sender: User? = null)
     : Message(id = id, text = text, timestamp = timestamp, status = status, sender = sender)
 data class MediaMessage(
     val id:Int,
@@ -51,7 +51,7 @@ data class MediaMessage(
     val mixMedia: List<List<Int>>,
     val timestamp: Timestamp,
     val status: MessageStatus,
-    val sender: User? = null)
+    override val sender: User? = null)
     : Message(id = id, mixMedia = mixMedia, timestamp = timestamp, status = status, sender = sender)
 data class MixMedia(
     val id:Int,
@@ -59,7 +59,7 @@ data class MixMedia(
     val mixMedia: List<List<Int>>,
     val timestamp: Timestamp,
     val status: MessageStatus,
-    val sender: User? = null)
+    override val sender: User? = null)
     : Message(id = id, mixMedia = mixMedia, text = text, timestamp = timestamp, status = status, sender = sender)
 
 /**
