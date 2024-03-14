@@ -5,6 +5,7 @@ import androidx.compose.ui.test.hasTestTag
 import androidx.compose.ui.test.hasText
 import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.compose.ui.test.onNodeWithText
+import androidx.navigation.NavController
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.platform.app.InstrumentationRegistry
 import com.example.csd228lab2.ui.screens.ConvoListScreen
@@ -31,8 +32,6 @@ class ComponentTest {
         composeRule.onNodeWithText("Create User").assertExists()
         composeRule.onNodeWithText("Username").assertExists()
         composeRule.onNodeWithText("Email").assertExists()
-
-
     }
 }
 

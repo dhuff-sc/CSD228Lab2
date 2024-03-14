@@ -21,6 +21,9 @@
       <entry key="testConvoListScreen()">
         <State />
       </entry>
+      <entry key="testCreateUserScreen()">
+        <State />
+      </entry>
     </value>
   </component>
 </project>
