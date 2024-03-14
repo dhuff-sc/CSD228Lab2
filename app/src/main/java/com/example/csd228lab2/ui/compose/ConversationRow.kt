@@ -8,6 +8,7 @@ import androidx.compose.material3.Card
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.unit.dp
 import com.example.csd228lab2.models.Conversation
 
@@ -21,6 +22,7 @@ fun ConversationRow (convo : Conversation, onClick : (Int) -> Unit) {
         modifier = Modifier.clickable(onClick = {onClick(convo.id)})
             .fillMaxWidth()
             .padding(8.dp)
+            .testTag("conversationRow")
     ) {
         Column(
             modifier = Modifier

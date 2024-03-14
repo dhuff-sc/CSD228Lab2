@@ -16,6 +16,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
@@ -40,6 +41,7 @@ fun CreateUserScreen(
         modifier = Modifier
             .fillMaxSize()
             .padding(16.dp)
+            .testTag("createUserScreen")
         ) {
             Text("Create User")
             Spacer(modifier = Modifier.height(16.dp))

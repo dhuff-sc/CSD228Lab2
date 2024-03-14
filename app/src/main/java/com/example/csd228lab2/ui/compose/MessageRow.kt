@@ -7,6 +7,7 @@ import androidx.compose.material3.Card
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.unit.dp
 import com.example.csd228lab2.models.Message
 
@@ -18,7 +19,10 @@ import com.example.csd228lab2.models.Message
 @Composable
 fun MessageRow(message: Message) {
     Card {
-        Box( modifier = Modifier.fillMaxWidth()) {
+        Box( modifier = Modifier
+            .fillMaxWidth()
+            .testTag("messageRow")
+        ) {
             message.sender?.let { Text(
                 modifier = Modifier.padding(8.dp),
                 text = it.userName + ": " + message.text
