@@ -14,6 +14,7 @@ class ConvoViewModel : ViewModel() {
     var User2 = User(id = 2, userName = "Bob", email = "", avatar = 'B')
     var convo = Conversation(
         id = 1,
+        convoName = "Alice and Bob",
         users = listOf(User1, User2),
         messages = listOf(
             Message(

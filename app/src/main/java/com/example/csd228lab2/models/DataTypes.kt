@@ -83,6 +83,7 @@ enum class MessageStatus(val value: String) {
  */
 data class Conversation(
     val id: Int,
+    val convoName: String?,
     val users: List<User>,
     val messages: List<Message>,
     val readReceipts: Boolean = true
