@@ -54,7 +54,7 @@ fun NavController.convo(convoId: Int) {
 
 /*
 * This is the ChatApp composable function
-* This contains the NavHost composable which allows for navigation between the conversation list,
+* This contains the NavHost component which allows for navigation between the conversation list,
 * create user, and conversation screens. We also set our startDestination to the conversation list screen
 * We also establish the navController extensions for easier testing
  */
