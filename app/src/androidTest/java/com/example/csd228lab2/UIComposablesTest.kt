@@ -43,16 +43,11 @@ class UIComposablesTest {
 
     @Test
     fun messageRowTest() {
-        val message = Message(
-            id = 1,
-            sender = User1,
-            text = "Hello!"
-        )
         composeTestRule.setContent {
-            MessageRow(message = message)
+            MessageRow(message = testConversation.messages[0])
         }
         composeTestRule.onNodeWithTag("messageRow").assertExists()
-        composeTestRule.onNodeWithText("Alice: Hello!").assertExists()
+        composeTestRule.onNodeWithText("Alice: Hello, Bob!").assertExists()
     }
         @Test
         fun conversationRowTest() {
