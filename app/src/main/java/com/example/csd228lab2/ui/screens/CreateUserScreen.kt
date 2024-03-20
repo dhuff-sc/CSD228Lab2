@@ -66,9 +66,9 @@ fun CreateUserScreen(
                     viewModel.createUser(userName, email)
                     cb()
                 },
-                modifier = Modifier.fillMaxWidth()
+                modifier = Modifier.fillMaxWidth().testTag("createUserButton"),
             ) {
-                Text("Create User")
+                Text( modifier = Modifier.testTag("createUserText"), text = "Create User")
         }
     }
 }

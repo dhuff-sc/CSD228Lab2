@@ -43,7 +43,7 @@ fun ConvoScreen( onBack: () -> Unit,
             CenterAlignedTopAppBar(
                 title = { Text("Convo") },
                 navigationIcon = {
-                    IconButton(onClick = onBack) {
+                    IconButton(onClick = onBack, modifier = Modifier.testTag("convoBackButton")) {
                         Icon(Icons.Filled.ArrowBack, contentDescription = "Back")
                     }
                 }
