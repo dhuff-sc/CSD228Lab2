@@ -32,34 +32,34 @@ data class User(
 open class Message(
     private val id: Int,
     private val mixMedia: List<List<Int>>? = emptyList(),
-    private val text: String? = null,
+    internal open val text: String? = null,
     private val status: MessageStatus? = null,
-    private val sender: User? = null,
+    internal open val sender: User? = null,
     private val timestamp: Timestamp = Timestamp(System.currentTimeMillis())
 )
 data class TextMessage(
     val id:Int,
-    val text:String?,
+    override val text:String?,
     val mixMedia: List<List<Int>>? = null,
     val timestamp: Timestamp,
     val status: MessageStatus,
-    val sender: User? = null)
+    override val sender: User? = null)
     : Message(id = id, text = text, timestamp = timestamp, status = status, sender = sender)
 data class MediaMessage(
     val id:Int,
-    val text:String? = null,
+    override val text:String,
     val mixMedia: List<List<Int>>,
     val timestamp: Timestamp,
     val status: MessageStatus,
-    val sender: User? = null)
+    override val sender: User? = null)
     : Message(id = id, mixMedia = mixMedia, timestamp = timestamp, status = status, sender = sender)
 data class MixMedia(
     val id:Int,
-    val text: String,
+    override val text: String? = null,
     val mixMedia: List<List<Int>>,
     val timestamp: Timestamp,
     val status: MessageStatus,
-    val sender: User? = null)
+    override val sender: User? = null)
     : Message(id = id, mixMedia = mixMedia, text = text, timestamp = timestamp, status = status, sender = sender)
 
 /**
@@ -83,6 +83,7 @@ enum class MessageStatus(val value: String) {
  */
 data class Conversation(
     val id: Int,
+    val convoName: String?,
     val users: List<User>,
     val messages: List<Message>,
     val readReceipts: Boolean = true

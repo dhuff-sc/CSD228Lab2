@@ -1,6 +1,6 @@
 package com.example.csd228lab2.actions_intents
 
-const private val appName = "com.example.csd288lab2"
+private const val appName = "com.example.csd288lab2"
 
 // ACTION_<NAME> = <app.package.name>.action.<NAME>
 const val ACTION_OPEN_CONVO = "${appName}.action.OPEN_CONVO"
