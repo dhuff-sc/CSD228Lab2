@@ -1,6 +1,7 @@
 package com.example.csd228lab2.ui.compose
 
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Card
@@ -18,15 +19,16 @@ import com.example.csd228lab2.models.Message
  */
 @Composable
 fun MessageRow(message: Message) {
-    Card {
-        Box( modifier = Modifier
-            .fillMaxWidth()
-            .testTag("messageRow")
-        ) {
+    Card( modifier = Modifier
+        .fillMaxWidth()
+        .testTag("messageRow")
+    )  {
+        Row {
             message.sender?.let { Text(
                 modifier = Modifier.padding(8.dp),
-                text = it.userName + ": " + message.text
+                text = "${it.userName}: "
             )
+                message.text?.let { it1 -> Text(text = it1,modifier = Modifier.padding(8.dp)) }
             }
         }
     }

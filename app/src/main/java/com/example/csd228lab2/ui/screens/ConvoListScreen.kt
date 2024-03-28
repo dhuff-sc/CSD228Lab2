@@ -6,6 +6,8 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.ArrowBack
@@ -66,14 +68,17 @@ fun ConvoListScreen(
             }
         }
     ) { innerPadding ->
-        Column(
+        LazyColumn(
             modifier = Modifier
                 .fillMaxSize()
                 .padding(innerPadding),
             verticalArrangement = Arrangement.spacedBy(16.dp),
         ) {
-            viewModel.convoList.forEach { convo ->
-                ConversationRow(convo, onClick = navToConvo)
+            // items here is imported from androidx.compose.foundation.Lazy.items
+            // using key here would reduce the number of re-rendered components
+            items(items = viewModel.convoList, key = {it.id}) {
+                // it here is the conversation
+                ConversationRow(convo = it, onClick = navToConvo)
             }
         }
     }
