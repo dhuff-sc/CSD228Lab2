@@ -17,6 +17,7 @@ import com.example.csd228lab2.ui.screens.ConvoListScreen
 import com.example.csd228lab2.ui.screens.ConvoScreen
 import com.example.csd228lab2.ui.screens.CreateUserScreen
 import com.example.csd228lab2.ui.theme.CSD228Lab2Theme
+import com.example.csd228lab2.ui.screens.DataStoresScreen
 
 /*
 * This is the main activity for the app
@@ -52,6 +53,10 @@ fun NavController.convo(convoId: Int) {
     navigate("convo/$convoId")
 }
 
+fun NavController.dataStores() {
+    navigate("dataStores")
+}
+
 /*
 * This is the ChatApp composable function
 * This contains the NavHost component which allows for navigation between the conversation list,
@@ -69,9 +74,12 @@ fun ChatApp(modifier: Modifier = Modifier) {
         composable("createUser") {
             CreateUserScreen(cb = {navController.convoList()})
         }
-        composable("convo/{convoId}") { backStackEntry ->
+        composable("convo/{convoId}") { _ ->
             ConvoScreen(onBack = {navController.popBackStack()})
 //                convoId = backStackEntry.arguments?.getString("convoId")!!
+        }
+        composable("dataStores") { _ ->
+            DataStoresScreen(onBack = {navController.popBackStack()})
         }
     }
 
