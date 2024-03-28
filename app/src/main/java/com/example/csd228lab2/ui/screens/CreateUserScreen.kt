@@ -16,16 +16,22 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.example.csd228lab2.ui.viewmodels.CreateUserViewModel
 import androidx.lifecycle.viewmodel.compose.viewModel
 
-
+/*
+* This is a composable function that represents the create user screen
+* It allows the user to create a new user with a username and email
+* The user can click the create user button to create a new user which will also navigate to the convo list
+* The user may return to this screen from the convo list screen
+ */
 @Composable
 fun CreateUserScreen(
-    navController: NavController,
+    cb : () -> Unit,
     viewModel: CreateUserViewModel = viewModel()
 ) {
     var userName by remember { mutableStateOf("") }
@@ -35,6 +41,7 @@ fun CreateUserScreen(
         modifier = Modifier
             .fillMaxSize()
             .padding(16.dp)
+            .testTag("createUserScreen")
         ) {
             Text("Create User")
             Spacer(modifier = Modifier.height(16.dp))
@@ -57,11 +64,11 @@ fun CreateUserScreen(
             Button(
                 onClick = {
                     viewModel.createUser(userName, email)
-                    navController.navigate("convoList")
+                    cb()
                 },
-                modifier = Modifier.fillMaxWidth()
+                modifier = Modifier.fillMaxWidth().testTag("createUserButton"),
             ) {
-                Text("Create User")
+                Text( modifier = Modifier.testTag("createUserText"), text = "Create User")
         }
     }
 }
