@@ -2,6 +2,7 @@ package com.example.csd228lab2
 
 import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.fillMaxSize
@@ -12,7 +13,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
-import androidx.datastore.preferences.core.edit
+import androidx.datastore.preferences.core.booleanPreferencesKey
 import androidx.datastore.preferences.preferencesDataStore
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
@@ -24,8 +25,10 @@ import com.example.csd228lab2.ui.screens.ConvoScreen
 import com.example.csd228lab2.ui.screens.CreateUserScreen
 import com.example.csd228lab2.ui.theme.CSD228Lab2Theme
 import com.example.csd228lab2.ui.screens.DataStoresScreen
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
+
 
 /*
 * This is the main activity for the app
@@ -40,16 +43,17 @@ class MainActivity : ComponentActivity() {
 
         setContent {
             CSD228Lab2Theme {
-
                 Surface(modifier = Modifier.fillMaxSize(), color = MaterialTheme.colorScheme.background) {
                     ChatApp()
                 }
             }
         }
         lifecycleScope.launch {
+            try {
             baseContext.dataStore.data.first()
-
-
+            } catch (e: Exception) {
+                Log.d("DataStore", "Error: ${e.message}")
+            }
         }
     }
 }
@@ -84,9 +88,13 @@ fun NavController.dataStores() {
 @Composable
 fun ChatApp(modifier: Modifier = Modifier) {
     val navController = rememberNavController()
-    NavHost(navController, startDestination = "dataStores", modifier = modifier) {
+    NavHost(navController, startDestination = "convoList", modifier = modifier) {
         composable("convoList") {
-            ConvoListScreen(cb = {navController.createUser()}, navToConvo = {navController.convo(it)})
+            ConvoListScreen(
+                cb = { navController.createUser()},
+                navToConvo = {navController.convo(it)},
+                navToDataStores = {navController.dataStores()}
+            )
         }
         composable("createUser") {
             CreateUserScreen(cb = {navController.convoList()})
@@ -95,7 +103,7 @@ fun ChatApp(modifier: Modifier = Modifier) {
             ConvoScreen(onBack = {navController.popBackStack()})
 //                convoId = backStackEntry.arguments?.getString("convoId")!!
         }
-        composable("dataStores") { _ ->
+        composable("dataStores") {
             DataStoresScreen(onBack = {navController.popBackStack()})
         }
     }

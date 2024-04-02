@@ -5,7 +5,11 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Switch
 import androidx.compose.material3.Text
@@ -21,17 +25,24 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 
 @OptIn(ExperimentalMaterial3Api::class)
-@SuppressLint("UnusedMaterial3ScaffoldPaddingParameter", "StateFlowValueCalledInComposition")
+@SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
 fun DataStoresScreen(
     onBack: () -> Unit,
     viewModel: DataStoresViewModel = viewModel()
 ) {
     val darkModeState by viewModel.darkModeState.collectAsState()
+
     Scaffold(
         topBar = {
             TopAppBar(
-                title = { Text(text = "Dark Mode Example") }
+                title = { Text(text = "Dark Mode Example") },
+                navigationIcon = {
+                    IconButton(onClick = onBack) {
+                        Icon(Icons.Filled.ArrowBack, contentDescription = "Back")
+                    }
+                }
+
             )
         },
         content = {
@@ -43,11 +54,12 @@ fun DataStoresScreen(
                 verticalArrangement = Arrangement.Center
             ) {
                 Switch(
-                    checked = viewModel.darkModeState.value,
+                    checked = darkModeState,
                     onCheckedChange = { viewModel.toggleDarkModePref(it) },
                     modifier = Modifier.padding(8.dp)
                 )
                 Text(text = "Toggle Dark Mode (Preferences)", modifier = Modifier.padding(top = 16.dp))
+
 //                Switch(
 //                    checked = viewModel.darkModeProto.value,
 //                    onCheckedChange = {viewModel.toggleDarkModeProto(it)},
