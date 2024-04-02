@@ -5,15 +5,14 @@ import android.os.Bundle
 import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.activity.viewModels
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
-import androidx.datastore.preferences.core.booleanPreferencesKey
 import androidx.datastore.preferences.preferencesDataStore
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
@@ -25,7 +24,7 @@ import com.example.csd228lab2.ui.screens.ConvoScreen
 import com.example.csd228lab2.ui.screens.CreateUserScreen
 import com.example.csd228lab2.ui.theme.CSD228Lab2Theme
 import com.example.csd228lab2.ui.screens.DataStoresScreen
-import kotlinx.coroutines.flow.Flow
+import com.example.csd228lab2.ui.viewmodels.DataStoresViewModel
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 
@@ -38,13 +37,14 @@ import kotlinx.coroutines.launch
 
 val Context.dataStore: DataStore<Preferences> by preferencesDataStore(name = "darkModePreferences")
 class MainActivity : ComponentActivity() {
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         setContent {
-            CSD228Lab2Theme {
+            CSD228Lab2Theme(darkTheme = false, dynamicColor = true) {
                 Surface(modifier = Modifier.fillMaxSize(), color = MaterialTheme.colorScheme.background) {
-                    ChatApp()
+                    ChatApp(dataStore = dataStore)
                 }
             }
         }
@@ -57,6 +57,7 @@ class MainActivity : ComponentActivity() {
         }
     }
 }
+
 
 /*
 * These NavControllers are extension functions that allow for easy navigation between screens
@@ -83,10 +84,9 @@ fun NavController.dataStores() {
 * This contains the NavHost component which allows for navigation between the conversation list,
 * create user, and conversation screens. We also set our startDestination to the conversation list screen
 * We also establish the navController extensions for easier testing
- */
-@Preview
+*/
 @Composable
-fun ChatApp(modifier: Modifier = Modifier) {
+fun ChatApp(dataStore: DataStore<Preferences>, modifier: Modifier = Modifier) {
     val navController = rememberNavController()
     NavHost(navController, startDestination = "convoList", modifier = modifier) {
         composable("convoList") {
@@ -104,7 +104,7 @@ fun ChatApp(modifier: Modifier = Modifier) {
 //                convoId = backStackEntry.arguments?.getString("convoId")!!
         }
         composable("dataStores") {
-            DataStoresScreen(onBack = {navController.popBackStack()})
+            DataStoresScreen(onBack = {navController.popBackStack()}, dataStore = dataStore)
         }
     }
 

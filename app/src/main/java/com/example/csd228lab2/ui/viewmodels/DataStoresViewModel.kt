@@ -6,6 +6,7 @@ import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.core.booleanPreferencesKey
 import androidx.datastore.preferences.core.edit
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -42,3 +43,15 @@ class DataStoresViewModel(private val dataStore: DataStore<Preferences>) : ViewM
     }
 
 }
+
+class DataStoresViewModelFactory(private val dataStore: DataStore<Preferences>) : ViewModelProvider.Factory {
+    override fun <T : ViewModel> create(modelClass: Class<T>): T {
+        if (modelClass.isAssignableFrom(DataStoresViewModel::class.java)) {
+            @Suppress("UNCHECKED_CAST")
+            return DataStoresViewModel(dataStore) as T
+        }
+        throw IllegalArgumentException("Unknown ViewModel class")
+    }
+}
+
+
