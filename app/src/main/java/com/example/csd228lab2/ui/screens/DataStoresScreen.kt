@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
+import androidx.compose.material3.Checkbox
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -53,14 +54,19 @@ fun DataStoresScreen(
                     .padding(16.dp)
                     .fillMaxSize()
             ) {
-                Spacer(modifier = Modifier.padding(24.dp))
+                Spacer(modifier = Modifier.padding(26.dp))
+                Text(text = "Toggle Dark Mode (Preferences)", modifier = Modifier.padding(top = 16.dp))
                 Switch(
                     checked = darkModeState,
                     onCheckedChange = { viewModel.toggleDarkModePref(it) },
                     modifier = Modifier
                 )
-                Text(text = "Toggle Dark Mode (Preferences)", modifier = Modifier.padding(top = 16.dp))
 
+                Text(text = "Dark Mode is on (Pref):", modifier = Modifier.padding(top = 16.dp))
+                Checkbox(
+                    checked = darkModeState,
+                    onCheckedChange = null, // null makes it non-clickable
+                    modifier = Modifier)
 //                Switch(
 //                    checked = viewModel.darkModeProto.value,
 //                    onCheckedChange = {viewModel.toggleDarkModeProto(it)},
