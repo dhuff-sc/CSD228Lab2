@@ -13,6 +13,7 @@ import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.twotone.AccountCircle
 import androidx.compose.material.icons.twotone.AddCircle
+import androidx.compose.material.icons.twotone.Settings
 import androidx.compose.material3.CenterAlignedTopAppBar
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
@@ -47,7 +48,8 @@ import com.example.csd228lab2.ui.compose.ConversationRow
 fun ConvoListScreen(
     cb : () -> Unit = {},
     viewModel: ConvoListViewModel = viewModel(),
-    navToConvo: (Int) -> Unit
+    navToConvo: (Int) -> Unit,
+    navToDataStores: () -> Unit
 ) {
 
 
@@ -63,8 +65,8 @@ fun ConvoListScreen(
             )
         },
         floatingActionButton = {
-            IconButton(onClick = {}) {
-                Icon(Icons.TwoTone.AddCircle, contentDescription = "Create Convo")
+            IconButton(onClick = {navToDataStores()}) {
+                Icon(Icons.TwoTone.Settings, contentDescription = "DataStores")
             }
         }
     ) { innerPadding ->

@@ -19,7 +19,7 @@ class MessengerScreensTest {
     @Test
     fun convoListScreenTest() {
         composeTestRule.setContent {
-            ConvoListScreen(navToConvo = {})
+            ConvoListScreen(navToConvo = {}, navToDataStores = {})
         }
         composeTestRule.onNodeWithTag("convoListScaffold").assertExists()
         composeTestRule.onNodeWithText("Convo List").assertExists()

@@ -1,6 +1,7 @@
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
+    id("com.google.protobuf") version "0.9.4"
 }
 
 android {
@@ -49,11 +50,36 @@ android {
     }
 }
 
+protobuf {
+    protoc {
+        artifact = "com.google.protobuf:protoc:3.21.7"
+    }
+    // Generates the java Protobuf-lite code for the Protobufs in this project. See
+    // https://github.com/google/protobuf-gradle-plugin#customizing-protobuf-compilation // for more information.
+    generateProtoTasks {
+        all().forEach {
+                task ->
+            task.builtins {
+// For when the sources are defined in src/<directory>/kotlin
+                create("kotlin") {
+                    option("lite")
+                }
+// For when the sources are defined in src/<directory>/java
+                create("java") {
+                    option("lite")
+                }
+            }
+        }
+    }
+}
+
+
 val navVersion = "2.7.7"
 
 dependencies {
 
-
+    implementation("androidx.datastore:datastore:1.0.0")
+    implementation("com.google.protobuf:protobuf-kotlin-lite:3.21.7")
     implementation("androidx.core:core-ktx:1.12.0")
     implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.7.0")
     implementation("androidx.activity:activity-compose:1.8.2")
@@ -74,4 +100,6 @@ dependencies {
     implementation("androidx.navigation:navigation-compose:$navVersion")
     androidTestImplementation("androidx.navigation:navigation-testing:$navVersion")
     implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.7.0")
+    implementation("androidx.datastore:datastore-preferences:1.0.0")
 }
+
