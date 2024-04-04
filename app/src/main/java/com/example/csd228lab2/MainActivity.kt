@@ -15,6 +15,7 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.datastore.core.DataStore
+import androidx.datastore.dataStore
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.preferencesDataStore
 import androidx.lifecycle.lifecycleScope
@@ -29,7 +30,6 @@ import com.example.csd228lab2.ui.screens.CreateUserScreen
 import com.example.csd228lab2.ui.theme.CSD228Lab2Theme
 import com.example.csd228lab2.ui.screens.DataStoresScreen
 import com.example.csd228lab2.ui.viewmodels.DataStoresViewModel
-import com.example.csd228lab2.ui.viewmodels.DataStoresViewModelFactory
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 
@@ -41,17 +41,23 @@ import kotlinx.coroutines.launch
  */
 
 val Context.dataStore: DataStore<Preferences> by preferencesDataStore(name = "darkModePreferences")
+val Context.settingsDataStore: DataStore<AppSettings> by dataStore("settings.pb",
+    DataStoresViewModel.SettingsSerializer
+)
 class MainActivity : ComponentActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         setContent {
-            val viewModel: DataStoresViewModel = viewModel(factory = DataStoresViewModelFactory(dataStore))
+            val settingsDataStore: DataStore<AppSettings> = baseContext.settingsDataStore
+            val viewModel: DataStoresViewModel = viewModel(factory = DataStoresViewModel.DataStoresViewModelFactory(
+                dataStore,
+                settingsDataStore))
             val darkModeState by viewModel.darkModeState.collectAsState()
             CSD228Lab2Theme(darkTheme = darkModeState) {
                 Surface(modifier = Modifier.fillMaxSize(), color = MaterialTheme.colorScheme.background) {
-                    ChatApp(dataStore = dataStore)
+                    ChatApp(dataStore = dataStore, settingsDataStore = settingsDataStore)
                 }
             }
         }
@@ -93,7 +99,7 @@ fun NavController.dataStores() {
 * We also establish the navController extensions for easier testing
 */
 @Composable
-fun ChatApp(dataStore: DataStore<Preferences>, modifier: Modifier = Modifier) {
+fun ChatApp(dataStore: DataStore<Preferences>, settingsDataStore: DataStore<AppSettings>, modifier: Modifier = Modifier) {
     val navController = rememberNavController()
     NavHost(navController, startDestination = "convoList", modifier = modifier) {
         composable("convoList") {
@@ -111,7 +117,11 @@ fun ChatApp(dataStore: DataStore<Preferences>, modifier: Modifier = Modifier) {
 //                convoId = backStackEntry.arguments?.getString("convoId")!!
         }
         composable("dataStores") {
-            DataStoresScreen(onBack = {navController.popBackStack()}, dataStore = dataStore)
+            DataStoresScreen(
+                onBack = {navController.popBackStack()},
+                dataStore = dataStore,
+                settingsDataStore = settingsDataStore
+            )
         }
     }
 

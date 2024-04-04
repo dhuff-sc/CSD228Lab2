@@ -16,15 +16,18 @@ import androidx.compose.material3.Switch
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
 import com.example.csd228lab2.ui.viewmodels.DataStoresViewModel
 import androidx.lifecycle.viewmodel.compose.viewModel
-import com.example.csd228lab2.ui.viewmodels.DataStoresViewModelFactory
+import com.example.csd228lab2.AppSettings
 
 @OptIn(ExperimentalMaterial3Api::class)
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
@@ -32,9 +35,24 @@ import com.example.csd228lab2.ui.viewmodels.DataStoresViewModelFactory
 fun DataStoresScreen(
     onBack: () -> Unit,
     dataStore: DataStore<Preferences>,
-    viewModel: DataStoresViewModel = viewModel(factory = DataStoresViewModelFactory(dataStore))
+    settingsDataStore: DataStore<AppSettings>,
+    viewModel: DataStoresViewModel = viewModel(factory = DataStoresViewModel.DataStoresViewModelFactory(
+        dataStore,
+        settingsDataStore
+    )
+    )
     ) {
     val darkModeState by viewModel.darkModeState.collectAsState()
+//    val useLocalFSStorageState by viewModel.useLocalFSStorage.collectAsState(initial = false)
+
+    val triggerDarkMode = remember { mutableStateOf(false) }
+
+    LaunchedEffect(triggerDarkMode.value) {
+        if (triggerDarkMode.value) {
+            viewModel.toggleDarkMode(triggerDarkMode.value)
+            triggerDarkMode.value = false
+        }
+    }
 
     Scaffold(
         topBar = {
@@ -65,14 +83,21 @@ fun DataStoresScreen(
                 Text(text = "Dark Mode is on (Pref):", modifier = Modifier.padding(top = 16.dp))
                 Checkbox(
                     checked = darkModeState,
-                    onCheckedChange = null, // null makes it non-clickable
+                    onCheckedChange = null,
                     modifier = Modifier)
+                Spacer(modifier = Modifier.padding(8.dp))
 //                Switch(
-//                    checked = viewModel.darkModeProto.value,
-//                    onCheckedChange = {viewModel.toggleDarkModeProto(it)},
-//                    modifier = Modifier.padding(8.dp)
+//                    checked = useLocalFSStorageState,
+//                    onCheckedChange = { newValue ->
+//                        triggerDarkMode.value = newValue
+//                    },
+//                    modifier = Modifier
 //                )
-//                Text(text = "Toggle Dark Mode (Proto)", modifier = Modifier.padding(top = 16.dp))
+//                Checkbox(
+//                    checked = useLocalFSStorageState,
+//                    onCheckedChange = null,
+//                    modifier = Modifier)
+
             }
         }
     )

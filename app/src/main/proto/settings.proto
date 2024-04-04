@@ -1,0 +1,9 @@
+syntax = "proto3";
+
+option java_package = "com.example.csd228lab2";
+option java_multiple_files = true;
+
+message AppSettings {
+	bool use_local_fs_storage = 1;
+	bool use_dark_mode = 2;
+}
