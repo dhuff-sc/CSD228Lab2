@@ -83,13 +83,14 @@ fun DataStoresScreen(
                 Switch(
                     checked = protoDarkModeState,
                     onCheckedChange = { viewModel.toggleDarkModeProto(it) },
-                    modifier = Modifier
+                    modifier = Modifier.testTag("switch2")
                 )
                 Text(text = "Proto: ", modifier = Modifier.padding(top = 16.dp))
                 Checkbox(
                     checked = protoDarkModeState,
                     onCheckedChange = null,
-                    modifier = Modifier)
+                    modifier = Modifier.testTag("check2")
+                )
 
             }
         }
