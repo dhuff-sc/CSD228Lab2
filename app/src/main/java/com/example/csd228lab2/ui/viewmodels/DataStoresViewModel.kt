@@ -71,11 +71,13 @@ class DataStoresViewModel(private val dataStore: DataStore<Preferences>,
 
     }
 
-    suspend fun toggleDarkMode(isDarkMode: Boolean) {
-        settingsDataStore.updateData { settings ->
-            settings.toBuilder()
-                .setUseDarkMode(!settings.useDarkMode)
-                .build()
+    fun toggleDarkModeProto(isDarkMode: Boolean) {
+        viewModelScope.launch {
+            settingsDataStore.updateData { settings ->
+                settings.toBuilder()
+                    .setUseDarkMode(isDarkMode)
+                    .build()
+            }
         }
     }
 

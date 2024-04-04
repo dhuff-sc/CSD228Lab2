@@ -55,7 +55,9 @@ class MainActivity : ComponentActivity() {
                 dataStore,
                 settingsDataStore))
             val darkModeState by viewModel.darkModeState.collectAsState()
-            CSD228Lab2Theme(darkTheme = darkModeState) {
+            val protoDarkModeState by viewModel.useDarkMode.collectAsState(initial = false)
+
+            CSD228Lab2Theme(darkTheme = darkModeState || protoDarkModeState) {
                 Surface(modifier = Modifier.fillMaxSize(), color = MaterialTheme.colorScheme.background) {
                     ChatApp(dataStore = dataStore, settingsDataStore = settingsDataStore)
                 }

@@ -22,6 +22,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.unit.dp
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
@@ -36,23 +37,15 @@ fun DataStoresScreen(
     onBack: () -> Unit,
     dataStore: DataStore<Preferences>,
     settingsDataStore: DataStore<AppSettings>,
-    viewModel: DataStoresViewModel = viewModel(factory = DataStoresViewModel.DataStoresViewModelFactory(
-        dataStore,
-        settingsDataStore
+    viewModel: DataStoresViewModel = viewModel(
+        factory = DataStoresViewModel.DataStoresViewModelFactory(
+            dataStore,
+            settingsDataStore
     )
     )
     ) {
     val darkModeState by viewModel.darkModeState.collectAsState()
-//    val useLocalFSStorageState by viewModel.useLocalFSStorage.collectAsState(initial = false)
-
-    val triggerDarkMode = remember { mutableStateOf(false) }
-
-    LaunchedEffect(triggerDarkMode.value) {
-        if (triggerDarkMode.value) {
-            viewModel.toggleDarkMode(triggerDarkMode.value)
-            triggerDarkMode.value = false
-        }
-    }
+    val protoDarkModeState by viewModel.useDarkMode.collectAsState(initial = false)
 
     Scaffold(
         topBar = {
@@ -71,32 +64,32 @@ fun DataStoresScreen(
                 modifier = Modifier
                     .padding(16.dp)
                     .fillMaxSize()
+                    .testTag("column")
             ) {
                 Spacer(modifier = Modifier.padding(26.dp))
                 Text(text = "Toggle Dark Mode (Preferences)", modifier = Modifier.padding(top = 16.dp))
                 Switch(
                     checked = darkModeState,
                     onCheckedChange = { viewModel.toggleDarkModePref(it) },
-                    modifier = Modifier
+                    modifier = Modifier.testTag("switch1")
                 )
 
                 Text(text = "Dark Mode is on (Pref):", modifier = Modifier.padding(top = 16.dp))
                 Checkbox(
                     checked = darkModeState,
                     onCheckedChange = null,
-                    modifier = Modifier)
+                    modifier = Modifier.testTag("check1"))
                 Spacer(modifier = Modifier.padding(8.dp))
-//                Switch(
-//                    checked = useLocalFSStorageState,
-//                    onCheckedChange = { newValue ->
-//                        triggerDarkMode.value = newValue
-//                    },
-//                    modifier = Modifier
-//                )
-//                Checkbox(
-//                    checked = useLocalFSStorageState,
-//                    onCheckedChange = null,
-//                    modifier = Modifier)
+                Switch(
+                    checked = protoDarkModeState,
+                    onCheckedChange = { viewModel.toggleDarkModeProto(it) },
+                    modifier = Modifier
+                )
+                Text(text = "Proto: ", modifier = Modifier.padding(top = 16.dp))
+                Checkbox(
+                    checked = protoDarkModeState,
+                    onCheckedChange = null,
+                    modifier = Modifier)
 
             }
         }
