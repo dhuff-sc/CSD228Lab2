@@ -1,14 +1,22 @@
 package com.example.csd228lab2.database
 
 import androidx.room.Dao
+import androidx.room.Database
 import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.Query
+import androidx.room.RoomDatabase
 import androidx.room.Update
+import com.example.csd228lab2.models.Conversation
 import com.example.csd228lab2.models.Message
 import com.example.csd228lab2.models.User
 
-class RoomDatabase {
+@Database(version = 1, entities = [User::class, Message::class, Conversation::class])
+abstract class RoomDatabase: RoomDatabase() {
+
+    abstract fun userDao(): UserDao
+    abstract fun messageDao(): MessageDao
+    abstract fun conversationDao(): ConversationDao
 
     @Dao
     interface UserDao {
@@ -50,19 +58,19 @@ class RoomDatabase {
     @Dao
     interface ConversationDao {
         @Insert
-        fun insertConversation(conversation: List<Message>)
+        fun insertConversation(conversation: Conversation)
 
         @Delete
-        fun deleteConversation(conversation: List<Message>)
+        fun deleteConversation(conversation: Conversation)
 
         @Update
-        fun updateConversation(conversation: List<Message>)
+        fun updateConversation(conversation: Conversation)
 
         @Query("SELECT * FROM message WHERE id = :id")
-        fun getConversationById(id: Int): List<Message>
+        fun getConversationById(id: Int): Conversation
 
         @Query("SELECT * FROM message")
-        fun getAllConversations(): List<List<Message>>
+        fun getAllConversations(): List<Conversation>
     }
 
 }

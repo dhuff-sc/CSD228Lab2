@@ -13,6 +13,8 @@ import androidx.navigation.NavController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import androidx.room.Room
+import com.example.csd228lab2.database.RoomDatabase
 import com.example.csd228lab2.ui.screens.ConvoListScreen
 import com.example.csd228lab2.ui.screens.ConvoScreen
 import com.example.csd228lab2.ui.screens.CreateUserScreen
@@ -24,8 +26,10 @@ import com.example.csd228lab2.ui.theme.CSD228Lab2Theme
 * The ChatApp composable is the main entry point for the app
  */
 class MainActivity : ComponentActivity() {
+    lateinit var db: RoomDatabase
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        db = Room.databaseBuilder(baseContext, RoomDatabase::class.java, "chatapp-db").build()
         setContent {
             CSD228Lab2Theme {
                 Surface(modifier = Modifier.fillMaxSize(), color = MaterialTheme.colorScheme.background) {
@@ -33,6 +37,10 @@ class MainActivity : ComponentActivity() {
                 }
             }
         }
+    }
+    override fun onDestroy() {
+        db.close()
+        super.onDestroy()
     }
 }
 
