@@ -8,8 +8,6 @@ package com.example.csd228lab2.models
 
 import java.sql.Timestamp
 
-// Room init
-
 /**
  * Data class that represents a user
  *

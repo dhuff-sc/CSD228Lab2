@@ -1,6 +1,7 @@
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
+    kotlin("kapt")
 }
 
 android {
@@ -51,6 +52,8 @@ android {
 
 val navVersion = "2.7.7"
 
+val room_version = "2.6.1"
+
 dependencies {
 
 
@@ -74,4 +77,17 @@ dependencies {
     implementation("androidx.navigation:navigation-compose:$navVersion")
     androidTestImplementation("androidx.navigation:navigation-testing:$navVersion")
     implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.7.0")
+    implementation("androidx.room:room-runtime:$room_version")
+    annotationProcessor("androidx.room:room-compiler:$room_version")
+// To use Kotlin annotation processing tool (kapt)
+    kotlin("kapt", "androidx.room:room-compiler:$room_version")
+// To use Kotlin Symbol Processing (KSP)
+    kotlin("ksp", "androidx.room:room-compiler:$room_version")
+// optional - Kotlin Extensions and Coroutines support for Room
+    implementation("androidx.room:room-ktx:$room_version")
+// optional - Test helpers
+    testImplementation("androidx.room:room-testing:$room_version")
+    androidTestImplementation("androidx.room:room-testing:$room_version")
+    implementation("androidx.room:room-paging:$room_version")
+
 }
