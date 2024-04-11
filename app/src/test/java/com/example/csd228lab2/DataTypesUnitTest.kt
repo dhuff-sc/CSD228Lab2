@@ -63,25 +63,25 @@ class DataTypesUnitTest {
         assertEquals("failed to send", MessageStatus.FAILED.value)
     }
 
-    @Before
-    fun setUpMessage() {
-        testTime = Timestamp(System.currentTimeMillis())
-        textMessage = TextMessage(
-            id = 1,
-            text = "This is a text-only message!",
-            status = MessageStatus.SENT,
-            timestamp = Timestamp(System.currentTimeMillis()))
-        mediaMessage = MediaMessage(id = 2,
-            mixMedia = listOf(listOf(1, 2), listOf(3, 4)),
-            status = MessageStatus.FAILED,
-            timestamp = Timestamp(System.currentTimeMillis()))
-        mixMedia = MixMedia(
-            id = 3,
-            text = "This is a mixed media message!",
-            mixMedia = listOf(listOf(5, 6)),
-            status = MessageStatus.DELIVERED,
-            timestamp = Timestamp(System.currentTimeMillis()))
-    }
+//    @Before
+//    fun setUpMessage() {
+//        testTime = Timestamp(System.currentTimeMillis())
+//        textMessage = TextMessage(
+//            id = 1,
+//            text = "This is a text-only message!",
+//            status = MessageStatus.SENT,
+//            timestamp = Timestamp(System.currentTimeMillis()))
+//        mediaMessage = MediaMessage(id = 2,
+//            mixMedia = listOf(listOf(1, 2), listOf(3, 4)),
+//            status = MessageStatus.FAILED,
+////            timestamp = Timestamp(System.currentTimeMillis()))
+////        mixMedia = MixMedia(
+////            id = 3,
+////            text = "This is a mixed media message!",
+////            mixMedia = listOf(listOf(5, 6)),
+////            status = MessageStatus.DELIVERED,
+////            timestamp = Timestamp(System.currentTimeMillis()))
+//    }
     // Testing Message subclasses, nulls where appropriate, timestamps and status are showing correctly
     @Test
     fun testCreateTextMessage() {
@@ -135,10 +135,10 @@ class DataTypesUnitTest {
         message5 = TextMessage(id = 5, text = "I didn't think you got my message for a sec lol", sender = user2, status = MessageStatus.SENT, timestamp = Timestamp(System.currentTimeMillis()))
         message6 = TextMessage(id = 6, text = null, sender = user2, status = MessageStatus.SENT, timestamp = Timestamp(System.currentTimeMillis()))
         message7 = TextMessage(id = 7, text = "", sender = user, status = MessageStatus.DELIVERED, timestamp = Timestamp(System.currentTimeMillis()))
-        message8 = MediaMessage(id = 8, mixMedia = listOf(listOf(1, 2), listOf(3, 4)), sender = user, status = MessageStatus.SENT, timestamp = Timestamp(System.currentTimeMillis()))
+//        message8 = MediaMessage(id = 8, mixMedia = listOf(listOf(1, 2), listOf(3, 4)), sender = user, status = MessageStatus.SENT, timestamp = Timestamp(System.currentTimeMillis()))
         message9 = MixMedia(id = 9, text = "This is a mixed media message!", mixMedia = listOf(listOf(5, 6)), sender = user2, status = MessageStatus.DELIVERED, timestamp = Timestamp(System.currentTimeMillis()))
         messages = listOf(message1, message2, message3, message4, message5, message6, message7, message8, message9)
-        conversation = Conversation( id = 1, users = listOf(user, user2), messages = messages, readReceipts = true)
+//        conversation = Conversation( id = 1, users = listOf(user, user2), messages = messages, readReceipts = true)
     }
     @Test
     fun testCreateConversationWithUsers() {

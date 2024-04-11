@@ -12,7 +12,7 @@ import com.example.csd228lab2.models.Message
 import com.example.csd228lab2.models.User
 
 @Database(version = 1, entities = [User::class, Message::class, Conversation::class])
-abstract class RoomDatabase: RoomDatabase() {
+abstract class ChatAppDatabase: RoomDatabase() {
 
     abstract fun userDao(): UserDao
     abstract fun messageDao(): MessageDao
@@ -66,10 +66,10 @@ abstract class RoomDatabase: RoomDatabase() {
         @Update
         fun updateConversation(conversation: Conversation)
 
-        @Query("SELECT * FROM message WHERE id = :id")
-        fun getConversationById(id: Int): Conversation
+        @Query("SELECT * FROM conversation WHERE id = :id")
+        fun getConversationById(id: Int): Conversation?
 
-        @Query("SELECT * FROM message")
+        @Query("SELECT * FROM conversation")
         fun getAllConversations(): List<Conversation>
     }
 

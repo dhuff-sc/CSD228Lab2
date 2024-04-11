@@ -19,7 +19,7 @@ import java.sql.Timestamp
  */
 @Entity(tableName = "user")
 data class User(
-    @PrimaryKey val id: Int? = null,
+    @PrimaryKey(autoGenerate = true) val id: Int = 0,
     @ColumnInfo(name = "user_name") val userName: String,
     val email: String,
     val avatar: Char? = null,
@@ -35,7 +35,7 @@ data class User(
  */
 @Entity(tableName = "message")
 open class Message(
-    @PrimaryKey private val id: Int,
+    @PrimaryKey(autoGenerate = true) private val id: Int = 0,
     @ColumnInfo(name = "mix_media") private val mixMedia: List<List<Int>>? = emptyList(),
     internal open val text: String? = null,
     private val status: MessageStatus? = null,
@@ -88,7 +88,7 @@ enum class MessageStatus(val value: String) {
  */
 @Entity(tableName = "conversation")
 data class Conversation(
-    @PrimaryKey val id: Int,
+    @PrimaryKey(autoGenerate = true) val id: Int = 0,
     @ColumnInfo(name = "conversation_name") val convoName: String?,
     val users: List<User>,
     val messages: List<Message>,

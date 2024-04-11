@@ -23,6 +23,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
+import com.example.csd228lab2.models.Conversation
 import com.example.csd228lab2.ui.compose.MessageRow
 import com.example.csd228lab2.ui.viewmodels.ConvoViewModel
 
@@ -35,8 +36,9 @@ import com.example.csd228lab2.ui.viewmodels.ConvoViewModel
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun ConvoScreen( onBack: () -> Unit,
-                 viewModel: ConvoViewModel = viewModel()
+fun ConvoScreen(convo: Conversation,
+                onBack: () -> Unit,
+                viewModel: ConvoViewModel = viewModel()
 ) {
     Scaffold( modifier = Modifier.testTag("convoScaffold"),
         topBar = {
@@ -67,7 +69,7 @@ fun ConvoScreen( onBack: () -> Unit,
                 .padding(innerPadding),
             verticalArrangement = Arrangement.spacedBy(16.dp),
         ) {
-            for (message in viewModel.convo.messages) {
+            for (message in viewModel.listConvoMessages(convo)) {
                 MessageRow(message = message)
             }
 

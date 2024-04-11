@@ -9,16 +9,18 @@ import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.room.Room
-import com.example.csd228lab2.database.RoomDatabase
+import com.example.csd228lab2.database.ChatAppDatabase
 import com.example.csd228lab2.ui.screens.ConvoListScreen
 import com.example.csd228lab2.ui.screens.ConvoScreen
 import com.example.csd228lab2.ui.screens.CreateUserScreen
 import com.example.csd228lab2.ui.theme.CSD228Lab2Theme
+import com.example.csd228lab2.ui.viewmodels.ConvoListViewModel
 
 /*
 * This is the main activity for the app
@@ -26,14 +28,14 @@ import com.example.csd228lab2.ui.theme.CSD228Lab2Theme
 * The ChatApp composable is the main entry point for the app
  */
 class MainActivity : ComponentActivity() {
-    lateinit var db: RoomDatabase
+    lateinit var db: ChatAppDatabase
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        db = Room.databaseBuilder(baseContext, RoomDatabase::class.java, "chatapp-db").build()
+        db = Room.databaseBuilder(baseContext, ChatAppDatabase::class.java, "chatapp-db").build()
         setContent {
             CSD228Lab2Theme {
                 Surface(modifier = Modifier.fillMaxSize(), color = MaterialTheme.colorScheme.background) {
-                    ChatApp()
+                    ChatApp(db = db)
                 }
             }
         }
@@ -66,10 +68,11 @@ fun NavController.convo(convoId: Int) {
 * create user, and conversation screens. We also set our startDestination to the conversation list screen
 * We also establish the navController extensions for easier testing
  */
-@Preview
+
 @Composable
-fun ChatApp(modifier: Modifier = Modifier) {
+fun ChatApp(db: ChatAppDatabase, modifier: Modifier = Modifier) {
     val navController = rememberNavController()
+    val viewModel: ConvoListViewModel = viewModel()
     NavHost(navController, startDestination = "convoList", modifier = modifier) {
         composable("convoList") {
             ConvoListScreen(cb = {navController.createUser()}, navToConvo = {navController.convo(it)})
@@ -78,8 +81,9 @@ fun ChatApp(modifier: Modifier = Modifier) {
             CreateUserScreen(cb = {navController.convoList()})
         }
         composable("convo/{convoId}") { backStackEntry ->
-            ConvoScreen(onBack = {navController.popBackStack()})
-//                convoId = backStackEntry.arguments?.getString("convoId")!!
+            val convoId = backStackEntry.arguments?.getString("convoId")!!
+            val convo = viewModel.getConversationById(convoId.toInt())
+            convo?.let { ConvoScreen(convo = it, onBack = {navController.popBackStack()}) }
         }
     }
 
