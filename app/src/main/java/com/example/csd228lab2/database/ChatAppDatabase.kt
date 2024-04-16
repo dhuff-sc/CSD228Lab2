@@ -11,6 +11,11 @@ import com.example.csd228lab2.models.Conversation
 import com.example.csd228lab2.models.Message
 import com.example.csd228lab2.models.User
 
+/*
+* Database class that represents the chat app database
+* Contains tables for users, messages, and conversations
+* Implements Daos for each table
+ */
 @Database(version = 1, entities = [User::class, Message::class, Conversation::class])
 abstract class ChatAppDatabase: RoomDatabase() {
 
@@ -19,6 +24,10 @@ abstract class ChatAppDatabase: RoomDatabase() {
     abstract fun conversationDao(): ConversationDao
 }
 
+/*
+* Dao interface for the user table
+* Contains functions to insert, delete, update, and query users
+ */
 @Dao
 interface UserDao {
     @Insert
@@ -38,6 +47,10 @@ interface UserDao {
 
 }
 
+/*
+* Dao interface for the message table
+* Contains functions to insert, delete, update, and query messages
+ */
 @Dao
 interface MessageDao {
     @Insert
@@ -56,6 +69,10 @@ interface MessageDao {
     fun getAllMessages(): List<Message>
 }
 
+/*
+* Dao interface for the conversation table
+* Contains functions to insert, delete, update, and query conversations
+ */
 @Dao
 interface ConversationDao {
     @Insert

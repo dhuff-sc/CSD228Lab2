@@ -26,10 +26,11 @@ import com.example.csd228lab2.ui.viewmodels.ConvoListViewModel
 * This is the main activity for the app
 * It establishes the content theme and sets the content to the ChatApp composable
 * The ChatApp composable is the main entry point for the app
+*
+* Implements the ChatAppDatabase to allow for database operations
  */
 class MainActivity : ComponentActivity() {
     lateinit var db: ChatAppDatabase
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         db = Room.databaseBuilder(baseContext, ChatAppDatabase::class.java, "chatapp-db").build()

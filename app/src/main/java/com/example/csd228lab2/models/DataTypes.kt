@@ -16,6 +16,8 @@ import java.sql.Timestamp
  *
  * Contains id, userName, email, and avatar
  * Meets the requirement for user data
+ *
+ * User entity for the Room database
  */
 @Entity(tableName = "user")
 data class User(
@@ -32,6 +34,8 @@ data class User(
  *
  * Contains id, mixMedia, text, status, sender, and timestamp
  * Meets the requirement for message status, message send time, and message sender
+ *
+ * Message entity for the Room database
  */
 @Entity(tableName = "message")
 open class Message(
@@ -85,6 +89,8 @@ enum class MessageStatus(val value: String) {
  * Meets the requirement for view conversation
  * Meets the requirement for toggle read receipts
  * Meets the requirement for single or multi-user conversation
+ *
+ * Conversation entity for the Room database
  */
 @Entity(tableName = "conversation")
 data class Conversation(
