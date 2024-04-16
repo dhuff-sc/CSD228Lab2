@@ -76,9 +76,9 @@ fun ConvoListScreen(
         ) {
             // items here is imported from androidx.compose.foundation.Lazy.items
             // using key here would reduce the number of re-rendered components
-            items(items = viewModel.convoList, key = {it.id}) {
+            items(items = viewModel.listConversations(), key = {it.id}) {
                 // it here is the conversation
-                ConversationRow(convo = it, onClick = navToConvo)
+                ConversationRow(convo = it, onClick = {convo -> navToConvo(convo)})
             }
         }
     }

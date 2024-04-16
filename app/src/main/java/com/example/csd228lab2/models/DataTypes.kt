@@ -6,6 +6,9 @@
 
 package com.example.csd228lab2.models
 
+import androidx.room.ColumnInfo
+import androidx.room.Entity
+import androidx.room.PrimaryKey
 import java.sql.Timestamp
 
 /**
@@ -13,10 +16,13 @@ import java.sql.Timestamp
  *
  * Contains id, userName, email, and avatar
  * Meets the requirement for user data
+ *
+ * User entity for the Room database
  */
+@Entity(tableName = "user")
 data class User(
-    val id: Int? = null,
-    val userName: String,
+    @PrimaryKey(autoGenerate = true) val id: Int = 0,
+    @ColumnInfo(name = "user_name") val userName: String,
     val email: String,
     val avatar: Char? = null,
 )
@@ -28,10 +34,13 @@ data class User(
  *
  * Contains id, mixMedia, text, status, sender, and timestamp
  * Meets the requirement for message status, message send time, and message sender
+ *
+ * Message entity for the Room database
  */
+@Entity(tableName = "message")
 open class Message(
-    private val id: Int,
-    private val mixMedia: List<List<Int>>? = emptyList(),
+    @PrimaryKey(autoGenerate = true) private val id: Int = 0,
+    @ColumnInfo(name = "mix_media") private val mixMedia: List<List<Int>>? = emptyList(),
     internal open val text: String? = null,
     private val status: MessageStatus? = null,
     internal open val sender: User? = null,
@@ -80,12 +89,15 @@ enum class MessageStatus(val value: String) {
  * Meets the requirement for view conversation
  * Meets the requirement for toggle read receipts
  * Meets the requirement for single or multi-user conversation
+ *
+ * Conversation entity for the Room database
  */
+@Entity(tableName = "conversation")
 data class Conversation(
-    val id: Int,
-    val convoName: String?,
+    @PrimaryKey(autoGenerate = true) val id: Int = 0,
+    @ColumnInfo(name = "conversation_name") val convoName: String?,
     val users: List<User>,
     val messages: List<Message>,
-    val readReceipts: Boolean = true
+    @ColumnInfo(name = "read_receipts") val readReceipts: Boolean = true
 )
 

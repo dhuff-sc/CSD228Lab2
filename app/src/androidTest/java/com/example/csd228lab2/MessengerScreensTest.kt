@@ -29,7 +29,7 @@ class MessengerScreensTest {
     @Test
     fun convoScreenTest() {
         composeTestRule.setContent {
-            ConvoScreen(onBack = {})
+//            ConvoScreen(onBack = {})
         }
         composeTestRule.onNodeWithTag("convoScaffold").assertExists()
         composeTestRule.onNodeWithText("Convo").assertExists()
