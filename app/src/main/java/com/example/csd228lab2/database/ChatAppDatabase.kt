@@ -17,60 +17,60 @@ abstract class ChatAppDatabase: RoomDatabase() {
     abstract fun userDao(): UserDao
     abstract fun messageDao(): MessageDao
     abstract fun conversationDao(): ConversationDao
+}
 
-    @Dao
-    interface UserDao {
-        @Insert
-        fun insertUser(user: User)
+@Dao
+interface UserDao {
+    @Insert
+    fun insertUser(user: User)
 
-        @Delete
-        fun deleteUser(user: User)
+    @Delete
+    fun deleteUser(user: User)
 
-        @Update
-        fun updateUser(user: User)
+    @Update
+    fun updateUser(user: User)
 
-        @Query("SELECT * FROM user WHERE id = :id")
-        fun getUserById(id: Int): User
+    @Query("SELECT * FROM user WHERE :id LIKE id")
+    fun getUserById(id: Int): User
 
-        @Query("SELECT * FROM user")
-        fun getAllUsers(): List<User>
-
-    }
-
-    @Dao
-    interface MessageDao {
-        @Insert
-        fun insertMessage(message: Message)
-
-        @Delete
-        fun deleteMessage(message: Message)
-
-        @Update
-        fun updateMessage(message: Message)
-
-        @Query("SELECT * FROM message WHERE id = :id")
-        fun getMessageById(id: Int): Message
-
-        @Query("SELECT * FROM message")
-        fun getAllMessages(): List<Message>
-    }
-
-    @Dao
-    interface ConversationDao {
-        @Insert
-        fun insertConversation(conversation: Conversation)
-
-        @Delete
-        fun deleteConversation(conversation: Conversation)
-
-        @Update
-        fun updateConversation(conversation: Conversation)
-
-        @Query("SELECT * FROM conversation WHERE id = :id")
-        fun getConversationById(id: Int): Conversation?
-
-        @Query("SELECT * FROM conversation")
-        fun getAllConversations(): List<Conversation>
-    }
+    @Query("SELECT * FROM user")
+    fun getAllUsers(): List<User>
 
 }
+
+@Dao
+interface MessageDao {
+    @Insert
+    fun insertMessage(message: Message)
+
+    @Delete
+    fun deleteMessage(message: Message)
+
+    @Update
+    fun updateMessage(message: Message)
+
+    @Query("SELECT * FROM message WHERE :id LIKE id")
+    fun getMessageById(id: Int): Message
+
+    @Query("SELECT * FROM message")
+    fun getAllMessages(): List<Message>
+}
+
+@Dao
+interface ConversationDao {
+    @Insert
+    fun insertConversation(conversation: Conversation)
+
+    @Delete
+    fun deleteConversation(conversation: Conversation)
+
+    @Update
+    fun updateConversation(conversation: Conversation)
+
+    @Query("SELECT * FROM conversation WHERE :id LIKE id")
+    fun getConversationById(id: Int): Conversation?
+
+    @Query("SELECT * FROM conversation")
+    fun getAllConversations(): List<Conversation>
+}
+

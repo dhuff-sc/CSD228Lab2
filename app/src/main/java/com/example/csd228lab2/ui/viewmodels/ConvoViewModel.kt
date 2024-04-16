@@ -2,6 +2,8 @@ package com.example.csd228lab2.ui.viewmodels
 
 import androidx.lifecycle.ViewModel
 import com.example.csd228lab2.database.ChatAppDatabase
+import com.example.csd228lab2.database.ConversationDao
+import com.example.csd228lab2.database.MessageDao
 import com.example.csd228lab2.models.Conversation
 import com.example.csd228lab2.models.Message
 import com.example.csd228lab2.models.User
@@ -11,8 +13,9 @@ import com.example.csd228lab2.models.User
 * Temporary until database/repository is implemented
  */
 class ConvoViewModel(
-    private val conversationDao: ChatAppDatabase.ConversationDao,
-    private val messageDao: ChatAppDatabase.MessageDao) : ViewModel() {
+    private val conversationDao: ConversationDao,
+    private val messageDao: MessageDao
+) : ViewModel() {
 //    var User1 = User(id = 1, userName = "Alice", email = "", avatar = 'A')
 //    var User2 = User(id = 2, userName = "Bob", email = "", avatar = 'B')
 //    var convo = Conversation(

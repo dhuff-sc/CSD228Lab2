@@ -29,6 +29,7 @@ import com.example.csd228lab2.ui.viewmodels.ConvoListViewModel
  */
 class MainActivity : ComponentActivity() {
     lateinit var db: ChatAppDatabase
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         db = Room.databaseBuilder(baseContext, ChatAppDatabase::class.java, "chatapp-db").build()

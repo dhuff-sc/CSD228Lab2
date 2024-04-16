@@ -5,12 +5,6 @@
       <entry key="MainActivity">
         <State />
       </entry>
-      <entry key="MessengerScreensTest">
-        <State />
-      </entry>
-      <entry key="UIComposablesTest">
-        <State />
-      </entry>
       <entry key="app">
         <State>
           <targetSelectedWithDropDown>
@@ -19,19 +13,13 @@
               <deviceKey>
                 <Key>
                   <type value="VIRTUAL_DEVICE_PATH" />
-                  <value value="C:\Users\baXterT7\.android\avd\Pixel_7_Pro_API_34.avd" />
+                  <value value="C:\Users\baXterT7\.android\avd\Pixel_7a_API_34.avd" />
                 </Key>
               </deviceKey>
             </Target>
           </targetSelectedWithDropDown>
-          <timeTargetWasSelectedWithDropDown value="2024-03-12T14:12:26.523301Z" />
+          <timeTargetWasSelectedWithDropDown value="2024-04-13T17:21:13.128457200Z" />
         </State>
-      </entry>
-      <entry key="convoScreenTest()">
-        <State />
-      </entry>
-      <entry key="messageRowTest()">
-        <State />
       </entry>
       <entry key="dataStoresScreentest()">
         <State />
