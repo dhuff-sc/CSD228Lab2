@@ -33,7 +33,12 @@ class MainActivity : ComponentActivity() {
     lateinit var db: ChatAppDatabase
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        db = Room.databaseBuilder(baseContext, ChatAppDatabase::class.java, "chatapp-db").build()
+        db = Room
+            .databaseBuilder(baseContext, ChatAppDatabase::class.java, "chatapp-db")
+            // This prevents crashing when starting up the application. Generally, we would have
+            // this run on a bg thread, but for the purpose of the lab this is sufficient.
+            .allowMainThreadQueries()
+            .build()
         setContent {
             CSD228Lab2Theme {
                 Surface(modifier = Modifier.fillMaxSize(), color = MaterialTheme.colorScheme.background) {
@@ -74,17 +79,17 @@ fun NavController.convo(convoId: Int) {
 @Composable
 fun ChatApp(db: ChatAppDatabase, modifier: Modifier = Modifier) {
     val navController = rememberNavController()
-    val viewModel: ConvoListViewModel = viewModel()
+    val vmModel = ConvoListViewModel(db.conversationDao())
     NavHost(navController, startDestination = "convoList", modifier = modifier) {
         composable("convoList") {
-            ConvoListScreen(cb = {navController.createUser()}, navToConvo = {navController.convo(it)})
+            ConvoListScreen(cb = {navController.createUser()}, viewModel = vmModel, navToConvo = {navController.convo(it)})
         }
         composable("createUser") {
             CreateUserScreen(cb = {navController.convoList()})
         }
         composable("convo/{convoId}") { backStackEntry ->
             val convoId = backStackEntry.arguments?.getString("convoId")!!
-            val convo = viewModel.getConversationById(convoId.toInt())
+            val convo = vmModel.getConversationById(convoId.toInt())
             convo?.let { ConvoScreen(convo = it, onBack = {navController.popBackStack()}) }
         }
     }
