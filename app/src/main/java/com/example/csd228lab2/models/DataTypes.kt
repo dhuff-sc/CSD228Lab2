@@ -39,35 +39,35 @@ data class User(
  */
 @Entity(tableName = "message")
 open class Message(
-    @PrimaryKey(autoGenerate = true) private val id: Int = 0,
-    @ColumnInfo(name = "mix_media") private val mixMedia: List<List<Int>>? = emptyList(),
-    internal open val text: String? = null,
-    private val status: MessageStatus? = null,
-    internal open val sender: User? = null,
-    private val timestamp: Timestamp = Timestamp(System.currentTimeMillis())
+    @PrimaryKey(autoGenerate = true) open val id: Int = 0,
+    @ColumnInfo(name = "mix_media") open val mixMedia: List<List<Int>>? = emptyList(),
+    open val text: String? = null,
+    open val status: MessageStatus? = null,
+    open val sender: User? = null,
+    open val timestamp: Timestamp = Timestamp(System.currentTimeMillis())
 )
 data class TextMessage(
-    val id:Int,
-    override val text:String?,
-    val mixMedia: List<List<Int>>? = null,
-    val timestamp: Timestamp,
-    val status: MessageStatus,
+    override val id:Int,
+    override val text:String,
+    override val mixMedia: List<List<Int>>? = null,
+    override val timestamp: Timestamp,
+    override val status: MessageStatus,
     override val sender: User? = null)
     : Message(id = id, text = text, timestamp = timestamp, status = status, sender = sender)
 data class MediaMessage(
-    val id:Int,
-    override val text:String,
-    val mixMedia: List<List<Int>>,
-    val timestamp: Timestamp,
-    val status: MessageStatus,
+    override val id:Int,
+    override val text:String? = null,
+    override val mixMedia: List<List<Int>>? = null,
+    override val timestamp: Timestamp,
+    override val status: MessageStatus,
     override val sender: User? = null)
     : Message(id = id, mixMedia = mixMedia, timestamp = timestamp, status = status, sender = sender)
 data class MixMedia(
-    val id:Int,
-    override val text: String? = null,
-    val mixMedia: List<List<Int>>,
-    val timestamp: Timestamp,
-    val status: MessageStatus,
+    override val id:Int,
+    override val text:String?,
+    override val mixMedia: List<List<Int>>,
+    override val timestamp: Timestamp,
+    override val status: MessageStatus,
     override val sender: User? = null)
     : Message(id = id, mixMedia = mixMedia, text = text, timestamp = timestamp, status = status, sender = sender)
 

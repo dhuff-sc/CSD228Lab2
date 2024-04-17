@@ -46,7 +46,7 @@ import com.example.csd228lab2.ui.compose.ConversationRow
 @Composable
 fun ConvoListScreen(
     cb : () -> Unit = {},
-    viewModel: ConvoListViewModel = viewModel(),
+    viewModel: ConvoListViewModel,
     navToConvo: (Int) -> Unit
 ) {
 
